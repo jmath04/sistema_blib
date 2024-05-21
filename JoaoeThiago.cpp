@@ -53,15 +53,14 @@ int main (){
             case 5:
                 relatorioAcervo(vetISBN,vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 break;
-            case 6: 
-                continuar = false;
+            case 6:
                 break;
             default:
                 cout << "opcao invalida" << endl;
                 break;
         }
 
-    }while(!continuar);
+    }while(op != 6);
 
     return 0;
 }
@@ -158,11 +157,10 @@ string validaIsbn(){
                     for (unsigned int i = 0; i < x.size(); i++) {
                         if (isdigit(x[i])) {
                             isbn += x[i];
-                        } else if (x[i] == '-' && cont < 4) {
+                        } else if (x[i] == '-' and cont < 4) {
                             cont++;
                         } else {
                             valido = false;
-                            cout << "erro digite o isbn novamente" << endl;
                             break;
                         }
                     }
@@ -193,12 +191,12 @@ string validaIsbn(){
                 }
             }
        }
+    }        
     }
-            
-        }
     } while (!valido);
     return x;
 }
+
 int validaInt(string frase){
     bool validada;
     string info;
