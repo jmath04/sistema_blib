@@ -36,25 +36,32 @@ int main (){
 
         switch (op){
             case 1:
+                system("cls");
                 addlivro(vetISBN, vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 ordenavetores(vetISBN, vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 break;
             case 2:
+                system("cls");
                 pesquisaLivro(vetISBN,vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 break;
             case 3:
+                system("cls");
                 excluiLivro(vetISBN,vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 ordenavetores(vetISBN,vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 break;
             case 4:
+                system("cls");
                 addExemplaresAcervo(vetISBN,vetExem,ex);
                 break;
             case 5:
+                system("cls");
                 relatorioAcervo(vetISBN,vetTitulo, vetAutor, vetEdit,vetExem,ex);
                 break;
             case 6:
+                system("cls");
                 break;
             default:
+                system("cls");
                 cout << "opcao invalida" << endl;
                 break;
         }
@@ -91,7 +98,7 @@ void apresentarAutor(string autor) {
             j--;
         }
     }
-    cout << vet[3] << " " << vet[0][0] << "." << vet[1][0];
+    cout << vet[2] << " " << vet[0][0] << "." << vet[1][0];
 }
 
 string validaIsbn(){
@@ -210,9 +217,12 @@ void addlivro(string vetISBN[], string vetTitulo[],string vetAutor[], string vet
         vetExem[ex] = validaInt("digite o numero de exemplares: ");
         vetTitulo[ex] = validaString("insira o titulo do livro: ");
         vetEditora[ex] = validaString("digite o nome da editora: ");
-        cout << "inclusao feita com sucesso.";
+        cout << "inclusao feita com sucesso." << endl;
         ex++;
     }
+    cout << "aperte qualquer teclar para continuar ";
+    cin.get();
+    system("cls");
 }
 void pesquisaLivro(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex ){
     bool achou;
@@ -227,7 +237,9 @@ void pesquisaLivro(string vetISBN[], string vetTitulo[], string vetAutor[], stri
         cout << "Num de exemplares: " << vetExem[indice] << endl;
 
     }
-
+    cout << "aperte qualquer teclar para continuar ";
+    cin.get();
+    system("cls");
 }
 void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex ){
     for(int i = 0; i < ex; i++){
@@ -240,6 +252,9 @@ void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], st
         cout << "Num de exemplares: " << vetExem[i] << endl;
         cout << endl;
     }
+    cout << "aperte qualquer teclar para continuar ";
+    cin.get();
+    system("cls");
 }
 void achouISBN(string vetIsbn[], int ex, bool &achou, int &indice){
     string isbn = validaIsbn();
@@ -271,6 +286,9 @@ void excluiLivro(string vetISBN[], string vetTitulo[], string vetAutor[], string
         cout << "Livro Excluido." << endl;
         ex--;
     }
+    cout << "aperte qualquer teclar para continuar ";
+    cin.get();
+    system("cls");
 }
 void ordenavetores(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[],int ex){
     for (int i = 0; i < ex; i++){
@@ -294,6 +312,9 @@ void addExemplaresAcervo(string vetISBN[], int vetExem[], int ex){
         vetExem[indice]+= nLivros;
         cout << "Exemplares incluidos" << endl;
     }
+    cout << "aperte qualquer teclar para continuar ";
+    cin.get();
+    system("cls");
 }
 
 
