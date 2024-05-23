@@ -3,11 +3,14 @@
 #include <cctype>
 #include <cstdlib>
 
+// arrumar o achou isbn para passar apenas o indice e se nao achar devolver menos 1
+
+
 
 #define tmax 100
 using namespace std;
 
-void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex );
+void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex );
 void addExemplaresAcervo(string vetISBN[], int vetExem[], int ex);
 void ordenavetores(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex);
 void excluiLivro(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex );
@@ -16,7 +19,7 @@ string validaIsbn();
 int validaInt(string frase);
 string validaString( string frase);
 void addlivro(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex );
-void achouISBN(string vetIsbn[], int ex, bool &achou, int &indice);
+void achouISBN(string vetIsbn[], int ex, bool &achou, int &indice); // arrumar
 void pesquisaLivro(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex );
 
 int main (){
@@ -75,7 +78,7 @@ void apresentarAutor(string autor) {
     unsigned int j = 0;
     string nome = "";
     string vet[10];
-    for(unsigned int i = 0; i < autor.size(); i++){
+    for(unsigned int i = 0; i < autor.size(); i++){ // divide o nome do autor
         if (autor[i] != ' '){
             nome += toupper(autor[i]);
         }
@@ -85,27 +88,27 @@ void apresentarAutor(string autor) {
             j++;
         }
     }
-    if( nome != ""){
+    if( nome != ""){ // pega o nome do buffer caso o usuario nao tenha colocado espaço no final
         vet[j] = nome;
         j++;
     }
-    for (unsigned int i = 0; i < j; i++){
+    for (unsigned int i = 0; i < j; i++){ // procura por conectores
         if (vet[i] == "DOS" or vet[i] == "DA" or vet[i] == "DE" or vet[i] == "DAS"){
-            for( unsigned int y = i; y < j - 1; y++){
+            for( unsigned int y = i; y < j - 1; y++){ // exclui o conector caso ele exista
                 vet[y] = vet[y+1];
                 
             }
             j--;
         }
     }
-    cout << vet[2] << " " << vet[0][0] << "." << vet[1][0];
+    cout << vet[2] << " " << vet[0][0] << "." << vet[1][0]; // mostra o nome em seguida;
 }
 
 string validaIsbn(){
     string x, isbn = "";
     bool valido;
     int cont;
-    long long int num, div = 1000000000000, result = 0;
+    long long int num, div = 1000000000000, result = 0; 
     do {
         valido = true;
         cont = 0;
@@ -241,7 +244,7 @@ void pesquisaLivro(string vetISBN[], string vetTitulo[], string vetAutor[], stri
     cin.get();
     system("cls");
 }
-void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex ){
+void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex ){
     for(int i = 0; i < ex; i++){
         cout << i+1 << " Livro do Acervo: " << endl;
         cout << "Titulo: " << vetTitulo[i] << endl;
