@@ -1,6 +1,7 @@
 #include <iostream> 
 #include <cstring>
 #include <cctype>
+#include <cstdlib>
 
 
 #define tmax 100
@@ -10,7 +11,6 @@ void relatorioAcervo(string vetISBN[], string vetTitulo[], string vetAutor[], st
 void addExemplaresAcervo(string vetISBN[], int vetExem[], int ex);
 void ordenavetores(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int ex);
 void excluiLivro(string vetISBN[], string vetTitulo[], string vetAutor[], string vetEditora[], int vetExem[], int &ex );
-string lernomeInteiro();
 void apresentarAutor(string autor);
 string validaIsbn();
 int validaInt(string frase);
@@ -23,7 +23,6 @@ int main (){
     string vetISBN[tmax], vetTitulo[tmax], vetAutor[tmax],vetEdit[tmax];
     int vetExem[tmax], op;
     int ex = 0;
-    bool continuar;
     do{
         cout <<" 1. adicionar um livro no acervo" << endl;
         cout <<" 2. consultar um livro por ISBN" << endl;
@@ -65,72 +64,36 @@ int main (){
     return 0;
 }
 
-string lernomeInteiro(){
-    string info, nome, sobrenome, nomecompleto; 
-    bool validada; 
-    unsigned int i; 
-    do{ 
-        validada=true; 
-        cout <<"Nome: "; 
-        getline(cin,info); 
-        if(info=="") // se for string vazia 
-            validada= false; 
-        for(unsigned int i=0; i<info.length(); i++) // varre letra a letra 
-            if(not isalpha(info[i]) and info[i]!=' ') 
-            validada= false; //erro se nao eh letra do alfabeto nem branco 
-        if(not validada) 
-            cout <<"Entrada invalida, digite novamente"<< endl; 
-    }while(not validada); 
-    nome = info; // copia entrada para a variavel nome 
-    do{ 
-        validada=true; 
-        cout <<"Sobrenome: "; 
-        getline(cin,info); 
-        if(info=="") // se for string vazia 
-            validada= false; 
-        for(i=0; i<info.length(); i++) // varre letra a letra 
-            if(not isalpha(info[i]) and info[i]!=' '){
-                validada= false; //erro se nao eh letra do alfabeto nem branco 
-            }
-        if(not validada) 
-            cout <<"Entrada invalida, digite novamente"<< endl; 
-        } 
-    while(not validada); 
-    sobrenome = info; // copia entrada para a variavel sobrenome 
-    nomecompleto = nome+" "+sobrenome; 
-    cout <<"Nome completo:"<<nomecompleto<<endl;
-    return nomecompleto; 
-}
 void apresentarAutor(string autor) {
-  string nome1, nome2, nome3, maiusculo = "";
-  char inicial1, inicial2;
-  unsigned int cont = 0;
-
-  while (cont < autor.size() && autor.at(cont) != ' ') {
-    nome1 += autor.at(cont);
-    cont++;
-  }
-  cont++;
-
-  while (cont < autor.size() && autor.at(cont) != ' ') {
-    nome2 += autor.at(cont);
-    cont++;
-  }
-  cont++;
-
-  while (cont < autor.size()) {
-    nome3 += autor.at(cont);
-    cont++;
-  }
-  for(unsigned int i = 0; i < nome3.size(); i++){
-    maiusculo += toupper(nome3[i]);
-  }
-  inicial1 = toupper(nome1[0]);
-  inicial2 = toupper(nome2[0]);
-
-  cout << maiusculo << ", " << inicial1 << "." << inicial2 << "."; 
-  
+    unsigned int j = 0;
+    string nome = "";
+    string vet[10];
+    for(unsigned int i = 0; i < autor.size(); i++){
+        if (autor[i] != ' '){
+            nome += toupper(autor[i]);
+        }
+        else{
+            vet[j] = nome;
+            nome = "";
+            j++;
+        }
+    }
+    if( nome != ""){
+        vet[j] = nome;
+        j++;
+    }
+    for (unsigned int i = 0; i < j; i++){
+        if (vet[i] == "DOS" or vet[i] == "DA" or vet[i] == "DE" or vet[i] == "DAS"){
+            for( unsigned int y = i; y < j - 1; y++){
+                vet[y] = vet[y+1];
+                
+            }
+            j--;
+        }
+    }
+    cout << vet[3] << " " << vet[0][0] << "." << vet[1][0];
 }
+
 string validaIsbn(){
     string x, isbn = "";
     bool valido;
@@ -243,8 +206,7 @@ void addlivro(string vetISBN[], string vetTitulo[],string vetAutor[], string vet
     }
     if(achou == false){
         vetISBN[ex] = isbn;
-        cout << " autor(a) " << endl;
-        vetAutor[ex] = lernomeInteiro();
+        vetAutor[ex] = validaString("digite o nome do autor(a): ");
         vetExem[ex] = validaInt("digite o numero de exemplares: ");
         vetTitulo[ex] = validaString("insira o titulo do livro: ");
         vetEditora[ex] = validaString("digite o nome da editora: ");
